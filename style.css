@@ -1,0 +1,45 @@
+.selected {
+  background-color: #ccffcc;
+  border: 2px solid green;
+  font-weight: bold;
+}
+.selected-winner {
+  font-weight: bold;
+  color: green; /* Or any color you prefer for the winner */
+  background-color: #e6ffe6; /* Light green background */
+  padding: 2px 0;
+  border-radius: 3px;
+}
+
+/* Optional: style for TBD */
+.wrestler1, .wrestler2 {
+  min-height: 18px; /* Ensure consistent height even if TBD */
+}
+
+
+.match {
+  border: 2px dashed red;
+  padding: 6px 8px;
+  margin: 4px 0;
+  border-radius: 4px;
+  background-color: #f0f8ff;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* END OF STYLES — Confirmed Override */
+
+
+
+.bracket-container {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  overflow-x: auto;
+  margin-bottom: 30px;
+}
+
+.round-column {
+  min-width: 200px;
+  flex-shrink: 0;
+}
