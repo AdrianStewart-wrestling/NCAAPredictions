@@ -101,6 +101,18 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.weight-buttons').style.display = 'none';
     document.getElementById('exportPDF').style.display = 'none';
 
+    const watermark = document.createElement('div');
+    watermark.innerText = '125 lbs';
+    watermark.style.position = 'absolute';
+    watermark.style.top = '40%';
+    watermark.style.left = '35%';
+    watermark.style.fontSize = '80px';
+    watermark.style.opacity = '0.1';
+    watermark.style.transform = 'rotate(-30deg)';
+    watermark.style.pointerEvents = 'none';
+    watermark.style.zIndex = '9999';
+    document.body.appendChild(watermark);
+
     const opt = {
       margin: 0.5,
       filename: 'bracket_125.pdf',
@@ -111,8 +123,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
     html2pdf()
       .from(document.getElementById('bracketWrapper'))
-      .save(opt)
+      .set({
+        ...opt,
+        html2canvas: {
+          scale: 2
+        },
+        jsPDF: opt.jsPDF,
+        margin: opt.margin,
+        filename: opt.filename,
+        pagebreak: { avoid: '.match' },
+        onclone: (doc) => {
+          const cloneWatermark = document.createElement('div');
+          cloneWatermark.className = 'watermark';
+          cloneWatermark.innerText = '125 lbs';
+          doc.getElementById('bracketWrapper').appendChild(cloneWatermark);
+        }
+      })
+      .save()
       .then(() => {
+        watermark.remove();
         document.querySelector('.weight-buttons').style.display = 'block';
         document.getElementById('exportPDF').style.display = 'block';
       });
